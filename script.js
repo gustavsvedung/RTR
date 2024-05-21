@@ -61,14 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reverbButton.addEventListener('click', () => {
         // Toggle reverb-effekten
-        if (reverbActive) {
-            player.disconnect(reverb);
-            reverbActive = false;
-            reverbButton.textContent = 'Add Reverb';
-        } else {
+        if (!reverbActive) {
             player.connect(reverb);
             reverbActive = true;
             reverbButton.textContent = 'Remove Reverb';
+        } else {
+            player.disconnect(reverb);
+            reverbActive = false;
+            reverbButton.textContent = 'Add Reverb';
         }
     });
 });
