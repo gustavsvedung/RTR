@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     Tone.Transport.bpm.value = 80;
 
     // Ladda buffern för att undvika hack vid loopning
-    const buffer = new Tone.Buffer('one.mp3', () => { // Ändra här till one.mp3
+    const buffer = new Tone.Buffer('one.ogg', () => { // Ändra här till one.ogg
         const player = new Tone.Player({
             url: buffer,
             loop: false, // Vi hanterar loopningen själva
