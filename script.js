@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).toDestination();
 
     // Skapa en GrainPlayer för ljudfilen
-    const grainPlayer = new Tone.GrainPlayer("ljudfil.mp3").toDestination();
+    const grainPlayer = new Tone.GrainPlayer("one.ogg").toDestination();
 
     playButton.addEventListener('click', async () => {
         // Kontrollera om AudioContext är i "suspended" tillstånd och starta det i så fall
