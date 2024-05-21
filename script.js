@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const playButton = document.getElementById('playButton');
+    const speedDownButton = document.getElementById('speedDownButton');
     let isPlaying = false;
+    let playbackRate = 1; // Grundläggande uppspelningshastighet
 
     // Ställ in transport BPM
     Tone.Transport.bpm.value = 80;
@@ -9,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const player = new Tone.Player({
         url: 'one.ogg',
         loop: false, // Vi hanterar loopningen själva
-        autostart: false
+        autostart: false,
+        playbackRate: playbackRate // Används för att justera uppspelningshastighet
     }).toDestination();
 
     const measureDuration = (60 / Tone.Transport.bpm.value) * 4;
@@ -37,5 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
             playButton.textContent = 'Stop';
         }
         isPlaying = !isPlaying;
+    });
+
+    speedDownButton.addEventListener('click', () => {
+        // Sänk uppspelningshastigheten med 10%
+        playbackRate -= 0.1;
+        if (playbackRate < 0.1) {
+            playbackRate = 0.1; // Låt inte uppspelningshastigheten bli mindre än 0.1
+        }
+        player.playbackRate = playbackRate;
     });
 });
