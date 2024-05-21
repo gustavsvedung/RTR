@@ -18,18 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ladda buffern för att undvika hack vid loopning
     const player = new Tone.Player({
         url: 'one.ogg',
-        loop: false, // Vi hanterar loopningen själva
+        loop: true, 
         autostart: false,
         playbackRate: playbackRate // Används för att justera uppspelningshastighet
     }).toDestination();
 
-    const measureDuration = (60 / Tone.Transport.bpm.value) * 4;
+    /* const measureDuration = (60 / Tone.Transport.bpm.value) * 4;
     const loopDuration = measureDuration * 16; // 16 takter
 
     // Schemalägg en exakt återuppspelning efter 16 takter
     Tone.Transport.scheduleRepeat((time) => {
         player.start(time);
-    }, loopDuration);
+    }, loopDuration); */
 
     playButton.addEventListener('click', async () => {
         // Kontrollera om AudioContext är i "suspended" tillstånd och starta det i så fall
