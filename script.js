@@ -1,8 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     const playButton = document.getElementById('playButton');
-    const stutterButton = document.getElementById('stutterButton'); // Lägg till knappen för stuttereffekten
+    const speedDownButton = document.getElementById('speedDownButton');
+    const reverbButton = document.getElementById('reverbButton');
+    const stutterButton = document.getElementById('stutterButton'); // Lägg till stutterknappen
     let isPlaying = false;
+    let playbackRate = 1; // Grundläggande uppspelningshastighet
+    let reverbActive = false; // För att hålla koll på om reverb är aktiverat
     let stutterActive = false; // För att hålla koll på om stuttereffekten är aktiverad
+
+    // Skapa en reverb-effekt
+    const reverb = new Tone.Reverb({
+        decay: 3, // Justera decay-tiden för reverb-effekten efter behov
+        wet: 0.5 // Justera våt/dry mix för reverb-effekten efter behov
+    }).toDestination();
 
     // Skapa en GrainPlayer för ljudfilen
     const grainPlayer = new Tone.GrainPlayer("ljudfil.mp3").toDestination();
@@ -24,6 +34,28 @@ document.addEventListener('DOMContentLoaded', () => {
             playButton.textContent = 'Stop';
         }
         isPlaying = !isPlaying;
+    });
+
+    speedDownButton.addEventListener('click', () => {
+        // Sänk uppspelningshastigheten med 10%
+        playbackRate -= 0.1;
+        if (playbackRate < 0.1) {
+            playbackRate = 0.1; // Låt inte uppspelningshastigheten bli mindre än 0.1
+        }
+        grainPlayer.playbackRate = playbackRate;
+    });
+
+    reverbButton.addEventListener('click', () => {
+        // Toggle reverb-effekten
+        if (!reverbActive) {
+            grainPlayer.connect(reverb);
+            reverbActive = true;
+            reverbButton.textContent = 'Remove Reverb';
+        } else {
+            grainPlayer.disconnect(reverb);
+            reverbActive = false;
+            reverbButton.textContent = 'Add Reverb';
+        }
     });
 
     stutterButton.addEventListener('click', () => {
