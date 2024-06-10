@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     async function initializePlayer() {
         await Tone.start(); // Ensure Tone.js AudioContext is started with a user gesture
         console.log('Tone.js AudioContext started');
-        
+
         player = new Tone.Player({
             url: 'one.ogg',
             loop: true,
@@ -38,7 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
             playButton.textContent = 'Play';
         } else {
             console.log('Starting playback');
-            player.start();
+            try {
+                player.start();
+                console.log('Playback started');
+            } catch (error) {
+                console.error('Error starting playback', error);
+            }
             playButton.textContent = 'Pause';
         }
 
