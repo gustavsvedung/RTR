@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const playButton = document.getElementById('play-button');
     let player;
     let isPlaying = false;
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Tone.js AudioContext started');
 
         player = new Tone.Player({
-            url: 'one.ogg', // Use full URL
+            url: 'one.ogg', // Use relative URL
             loop: true,
             autostart: false,
             onload: () => {
@@ -28,17 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Player initialized:', player.loaded);
     }
 
-    playButton.addEventListener('click', async function () {
+    // Initialize the player on page load
+    await initializePlayer();
+
+    playButton.addEventListener('click', function () {
         console.log('Play button clicked');
-        if (!player) {
-            console.log('Initializing player');
-            try {
-                await initializePlayer();
-            } catch (error) {
-                console.error('Error initializing player', error);
-                return;
-            }
-        }
 
         if (isPlaying) {
             console.log('Stopping playback');
