@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Tone.js AudioContext started');
 
         player = new Tone.Player({
-            url: 'one.ogg',
+            url: 'https://gustavsvedung.github.io/looper2/one.ogg',
             loop: true,
             autostart: false,
             onload: () => {
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             onerror: (error) => {
                 console.error('Error loading audio file', error);
             }
-        }).toDestination();
+        }).toDestination();        
     }
 
     playButton.addEventListener('click', async function () {
