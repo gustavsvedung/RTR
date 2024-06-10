@@ -1,27 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     const playButton = document.getElementById('play-button');
-    let player = null;
+    let player;
     let isPlaying = false;
 
-    // Initialize Tone.js player
-    function initializePlayer() {
+    async function initializePlayer() {
+        await Tone.start(); // Ensure Tone.js AudioContext is started with a user gesture
         player = new Tone.Player({
             url: 'one.ogg',
             loop: true,
             autostart: false,
-            onload: () => {
-                console.log('Audio file loaded successfully');
-            },
-            onerror: (error) => {
-                console.error('Error loading audio file', error);
-            }
         }).toDestination();
     }
 
     playButton.addEventListener('click', async function () {
         if (!player) {
-            await Tone.start();  // Ensures Tone.js AudioContext is started
-            initializePlayer();
+            await initializePlayer();
         }
 
         if (isPlaying) {
