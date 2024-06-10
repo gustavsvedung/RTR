@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Tone.js AudioContext started');
 
         player = new Tone.Player({
-            url: 'https://gustavsvedung.github.io/looper2/one.ogg',
+            url: 'one.ogg',
             loop: true,
             autostart: false,
             onload: () => {
