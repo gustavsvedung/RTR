@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Tone.js AudioContext started');
 
         player = new Tone.Player({
-            url: 'one.ogg',
+            url: 'https://gustavsvedung.github.io/looper2/one.ogg', // Use full URL
             loop: true,
             autostart: false,
             onload: () => {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }).toDestination();
 
         // Debugging: Check player state
-        console.log('Player state:', player.state);
+        console.log('Player initialized:', player.loaded);
     }
 
     playButton.addEventListener('click', async function () {
@@ -41,13 +41,17 @@ document.addEventListener('DOMContentLoaded', function () {
             playButton.textContent = 'Play';
         } else {
             console.log('Starting playback');
-            try {
-                player.start();
-                console.log('Playback started');
-            } catch (error) {
-                console.error('Error starting playback', error);
+            if (player.loaded) {
+                try {
+                    player.start();
+                    console.log('Playback started');
+                } catch (error) {
+                    console.error('Error starting playback', error);
+                }
+                playButton.textContent = 'Pause';
+            } else {
+                console.error('Player is not loaded yet');
             }
-            playButton.textContent = 'Pause';
         }
 
         isPlaying = !isPlaying;
