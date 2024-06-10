@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
             onerror: (error) => {
                 console.error('Error loading audio file', error);
             }
-        }).toDestination();        
+        }).toDestination();
+
+        // Debugging: Check player state
+        console.log('Player state:', player.state);
     }
 
     playButton.addEventListener('click', async function () {
@@ -48,5 +51,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         isPlaying = !isPlaying;
+    });
+
+    // Debugging: Check document events and player state
+    document.addEventListener('visibilitychange', () => {
+        console.log('Document visibility changed:', document.visibilityState);
+    });
+    window.addEventListener('focus', () => {
+        console.log('Window focused');
+    });
+    window.addEventListener('blur', () => {
+        console.log('Window blurred');
     });
 });
