@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', function () {
     const playButton = document.getElementById('play-button');
     let player;
     let isPlaying = false;
@@ -28,33 +28,44 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.log('Player initialized:', player.loaded);
     }
 
-    // Initialize the player on page load
-    await initializePlayer();
-
-    playButton.addEventListener('click', function () {
+    playButton.addEventListener('click', async function () {
         console.log('Play button clicked');
-
-        if (isPlaying) {
-            console.log('Stopping playback');
-            player.stop();
-            playButton.textContent = 'Play';
-        } else {
-            console.log('Starting playback');
-            if (player.loaded) {
-                try {
+        if (!player) {
+            console.log('Initializing player');
+            try {
+                await initializePlayer();
+                if (player.loaded) {
                     player.start();
                     console.log('Playback started');
-                } catch (error) {
-                    console.error('Error starting playback', error);
+                    playButton.textContent = 'Pause';
+                    isPlaying = true;
                 }
-                playButton.textContent = 'Pause';
-            } else {
-                console.log('Player is not loaded yet, waiting for load to complete');
-                isPlaying = true; // Set the flag to indicate we want to play once loaded
+            } catch (error) {
+                console.error('Error initializing player', error);
+                return;
             }
+        } else {
+            if (isPlaying) {
+                console.log('Stopping playback');
+                player.stop();
+                playButton.textContent = 'Play';
+            } else {
+                console.log('Starting playback');
+                if (player.loaded) {
+                    try {
+                        player.start();
+                        console.log('Playback started');
+                    } catch (error) {
+                        console.error('Error starting playback', error);
+                    }
+                    playButton.textContent = 'Pause';
+                } else {
+                    console.log('Player is not loaded yet, waiting for load to complete');
+                    isPlaying = true; // Set the flag to indicate we want to play once loaded
+                }
+            }
+            isPlaying = !isPlaying;
         }
-
-        isPlaying = !isPlaying;
     });
 
     // Debugging: Check document events and player state
