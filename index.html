@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Looping Audio with Tone.js</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.19/Tone.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            margin: 0;
-        }
-        button {
-            padding: 20px;
-            font-size: 1.5em;
-            cursor: pointer;
-            margin: 0 10px; /* Lägg till lite marginal runt knapparna */
-        }
-    </style>
+    <title>Minimalist Music Player</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="playButton">Play</button>
-    <button id="speedDownButton">Slow Down</button> <!-- Lägg till knappen för att sänka uppspelningshastigheten -->
-    <button id="reverbButton">Add Reverb</button> <!-- Lägg till knappen för att lägga till reverb -->
-
-    <button id="stutterButton">Enable Stutter</button> <!-- Lägg till knappen för stuttereffekten -->
-
-    <script src="script.js"></script>
+    <div class="player-container">
+        <header class="player-header">
+            GUS BY HEART<br>RETURN TO REPEAT<br>one
+        </header>
+        <div class="waveform"></div>
+        <div class="player-controls">
+            <button id="playButton">Play</button>
+            <button id="stopButton">Stop</button>
+        </div>
+        <footer class="player-footer">
+            every day a new
+        </footer>
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/tone"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
