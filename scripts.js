@@ -88,4 +88,4 @@ document.querySelector("play-button")?.addEventListener("click", async () => {
     window.addEventListener('blur', () => {
         console.log('Window blurred');
     });
-});
+// });
