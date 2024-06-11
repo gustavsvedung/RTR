@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const playButton = document.getElementById('play-button');
     let player;
     let isPlaying = false;
+    let audioReady = false;
 
     async function initializePlayer() {
         await Tone.start(); // Ensure Tone.js AudioContext is started with a user gesture
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             autostart: false,
             onload: () => {
                 console.log('Audio file loaded successfully');
+                audioReady = true;
                 if (isPlaying) {
                     player.start();
                     console.log('Playback started');
@@ -30,11 +32,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     playButton.addEventListener('click', async function () {
         console.log('Play button clicked');
-        if (!player) {
+
+        if (!audioReady) {
             console.log('Initializing player');
             try {
                 await initializePlayer();
-                if (player.loaded) {
+                if (player.loaded && !isPlaying) {
                     player.start();
                     console.log('Playback started');
                     playButton.textContent = 'Pause';
@@ -49,22 +52,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Stopping playback');
                 player.stop();
                 playButton.textContent = 'Play';
+                isPlaying = false;
             } else {
                 console.log('Starting playback');
                 if (player.loaded) {
                     try {
                         player.start();
                         console.log('Playback started');
+                        playButton.textContent = 'Pause';
+                        isPlaying = true;
                     } catch (error) {
                         console.error('Error starting playback', error);
                     }
-                    playButton.textContent = 'Pause';
                 } else {
                     console.log('Player is not loaded yet, waiting for load to complete');
                     isPlaying = true; // Set the flag to indicate we want to play once loaded
                 }
             }
-            isPlaying = !isPlaying;
         }
     });
 
