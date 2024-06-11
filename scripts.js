@@ -16,9 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Audio file loaded successfully');
                 isPlayerInitialized = true;
                 if (isPlaying) {
-                    player.start();
-                    console.log('Playback started');
-                    playButton.textContent = 'Pause';
+                    startPlayback();
                 }
             },
             onerror: (error) => {
@@ -30,6 +28,18 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Player initialized:', player.loaded);
     }
 
+    function startPlayback() {
+        player.start();
+        console.log('Playback started');
+        playButton.textContent = 'Pause';
+    }
+
+    function stopPlayback() {
+        player.stop();
+        console.log('Playback stopped');
+        playButton.textContent = 'Play';
+    }
+
     playButton.addEventListener('click', async function () {
         console.log('Play button clicked');
 
@@ -38,28 +48,19 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 await initializePlayer();
                 isPlaying = true;
-                playButton.textContent = 'Pause';
+                startPlayback();
             } catch (error) {
                 console.error('Error initializing player', error);
                 return;
             }
         } else {
             if (isPlaying) {
-                console.log('Stopping playback');
-                player.stop();
-                playButton.textContent = 'Play';
+                stopPlayback();
                 isPlaying = false;
             } else {
-                console.log('Starting playback');
                 if (player.loaded) {
-                    try {
-                        player.start();
-                        console.log('Playback started');
-                        playButton.textContent = 'Pause';
-                        isPlaying = true;
-                    } catch (error) {
-                        console.error('Error starting playback', error);
-                    }
+                    startPlayback();
+                    isPlaying = true;
                 } else {
                     console.log('Player is not loaded yet, waiting for load to complete');
                 }
