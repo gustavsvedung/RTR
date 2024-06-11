@@ -1,10 +1,4 @@
-//instruction from tone.js
-document.querySelector("play-button")?.addEventListener("click", async () => {
-	await Tone.start();
-	console.log("audio is ready");
-});
-
-/* document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const playButton = document.getElementById('play-button');
     let player;
     let isPlaying = false;
@@ -12,7 +6,7 @@ document.querySelector("play-button")?.addEventListener("click", async () => {
 
     async function initializePlayer() {
         await Tone.start(); // Ensure Tone.js AudioContext is started with a user gesture
-        console.log('Tone.js AudioContext started'); */
+        console.log('Tone.js AudioContext started');
 
         player = new Tone.Player({
             url: 'one.ogg', // Use relative URL
@@ -34,7 +28,7 @@ document.querySelector("play-button")?.addEventListener("click", async () => {
 
         // Debugging: Check player state
         console.log('Player initialized:', player.loaded);
-    // }
+    }
 
     playButton.addEventListener('click', async function () {
         console.log('Play button clicked');
@@ -88,4 +82,4 @@ document.querySelector("play-button")?.addEventListener("click", async () => {
     window.addEventListener('blur', () => {
         console.log('Window blurred');
     });
-// });
+});
