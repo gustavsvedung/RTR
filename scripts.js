@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const playButton = document.getElementById('play-button');
     let player;
     let isPlaying = false;
-    let audioReady = false;
+    let isPlayerInitialized = false;
 
     async function initializePlayer() {
         await Tone.start(); // Ensure Tone.js AudioContext is started with a user gesture
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             autostart: false,
             onload: () => {
                 console.log('Audio file loaded successfully');
-                audioReady = true;
+                isPlayerInitialized = true;
                 if (isPlaying) {
                     player.start();
                     console.log('Playback started');
@@ -33,16 +33,12 @@ document.addEventListener('DOMContentLoaded', function () {
     playButton.addEventListener('click', async function () {
         console.log('Play button clicked');
 
-        if (!audioReady) {
+        if (!isPlayerInitialized) {
             console.log('Initializing player');
             try {
                 await initializePlayer();
-                if (player.loaded && !isPlaying) {
-                    player.start();
-                    console.log('Playback started');
-                    playButton.textContent = 'Pause';
-                    isPlaying = true;
-                }
+                isPlaying = true;
+                playButton.textContent = 'Pause';
             } catch (error) {
                 console.error('Error initializing player', error);
                 return;
@@ -66,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 } else {
                     console.log('Player is not loaded yet, waiting for load to complete');
-                    isPlaying = true; // Set the flag to indicate we want to play once loaded
                 }
             }
         }
