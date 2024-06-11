@@ -34,7 +34,7 @@ document.querySelector("play-button")?.addEventListener("click", async () => {
 
         // Debugging: Check player state
         console.log('Player initialized:', player.loaded);
-    }
+    // }
 
     playButton.addEventListener('click', async function () {
         console.log('Play button clicked');
