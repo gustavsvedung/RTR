@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RETURN TO REPEAT</title>
+    <meta name="description" content="An interactive music player by Gus By Heart.">
+    <meta name="keywords" content="music, audio, loop player, Gus By Heart, Return to Repeat">
+    <meta name="author" content="Gus By Heart">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <script src="https://kit.fontawesome.com/de40dc0d25.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>GUS BY HEART<br>
-            RETURN TO REPEAT</h1>
+            <h1>GUS BY HEART<br>RETURN TO REPEAT</h1>
             <h2>one</h2>
         </header>
         <div class="player">
-            <button id="play-button">Play</button>
+            <button id="play-button" aria-label="Play"><i class="fa-solid fa-play"></i></button>
+            <div class="nav-buttons-container">
+                <button id="next-button" aria-label="Next"><i class="fa-solid fa-forward-fast"></i></button>
+                <button id="shuffle-button" aria-label="Shuffle"><i class="fa-solid fa-shuffle"></i></button>
+            </div>
         </div>
         <section class="track-info">
             <p>every day a new</p>
@@ -28,6 +32,6 @@
         </footer>
     </div>
     <script src="https://unpkg.com/tone"></script>
-    <script src="scripts.js"></script>
+    <script src="scripts.js" type="module"></script>
 </body>
 </html>
