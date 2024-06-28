@@ -4,8 +4,14 @@ body {
     align-items: center;
     margin: 0;
     padding: 0;
-    background-color: #FFF8DC;
+    background-color: #FFF8DC; /* Default background color */
     font-family: 'Arial', sans-serif;
+    color: black; /* Ensure text color is black by default */
+}
+
+a {
+    color: black; /* Ensure all links are black by default */
+    text-decoration: none; /* Remove underline from links */
 }
 
 .container {
@@ -56,6 +62,7 @@ h2 {
     transition: background 0.3s, color 0.3s;
     overflow: hidden;
     margin-bottom: 10px;
+    color: black; /* Ensure button icons are black */
 }
 
 .nav-buttons-container {
@@ -78,6 +85,7 @@ h2 {
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
     overflow: hidden;
+    color: black; /* Ensure button icons are black */
 }
 
 #next-button {
@@ -99,11 +107,24 @@ footer p {
     color: #333;
 }
 
-@media (max-width: 600px) {
-    h1, h2 {
-        text-align: center;
-    }
+/* Styles for different tracks */
+body.track-one {
+    background-color: #FFF8DC; /* Original background color */
+}
 
+body.track-two {
+    background-color: #FFD700; /* Example color for track two */
+}
+
+body.track-three {
+    background-color: #ADD8E6; /* Example color for track three */
+}
+
+body.track-four {
+    background-color: #90EE90; /* Example color for track four */
+}
+
+@media (max-width: 600px) {
     .player {
         margin: 10px 0;
     }
