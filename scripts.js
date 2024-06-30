@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let isPlaying = false;
     let isInitialized = false;
 
+    const noSleep = new NoSleep(); // Initialize NoSleep
+
     const tracks = [
         { title: "one", url: "1.mp3", className: "track-one" },
         { title: "two", url: "2.mp3", className: "track-two" },
@@ -34,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (autoplay) {
                         playButton.innerHTML = '<i class="fa-solid fa-pause"></i>'; // Show pause icon if autoplaying
                         isPlaying = true; // Update isPlaying status if autoplay is true
+                        noSleep.enable(); // Enable NoSleep when autoplaying
                     } else {
                         playButton.innerHTML = '<i class="fa-solid fa-play"></i>'; // Show play icon if not autoplaying
                     }
@@ -58,9 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isPlaying) {
             player.stop();
             playButton.innerHTML = '<i class="fa-solid fa-play"></i>';
+            noSleep.disable(); // Disable NoSleep when paused
         } else {
             player.start();
             playButton.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            noSleep.enable(); // Enable NoSleep when playing
         }
         isPlaying = !isPlaying;
     }
