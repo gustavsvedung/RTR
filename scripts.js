@@ -12,7 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tracks = [
         { title: "one", url: "1.mp3", className: "track-one" },
-        { title: "two", url: "2.mp3", className: "track-two" },
+        { 
+            title: "two", 
+            url: () => Math.random() < 0.4 ? "2b.mp3" : "2.mp3", // 40% chance to play 2b.mp3
+            className: "track-two" 
+        },
         { title: "three", url: "3.mp3", className: "track-three" },
         { title: "four", url: "4.mp3", className: "track-four" }
     ];
@@ -79,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const track = tracks[index];
         body.className = track.className;
         trackTitle.textContent = track.title;
-        initializeAudio(track.url, autoplay);
+        const url = typeof track.url === 'function' ? track.url() : track.url; // Determine track URL
+        initializeAudio(url, autoplay);
     }
 
     function shuffleTrack() {
@@ -107,4 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     shuffleButton.addEventListener('click', () => {
         shuffleTrack();
     });
+
+    // Initialize the first track
+    loadTrack(currentTrackIndex);
 });
