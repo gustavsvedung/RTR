@@ -23,10 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTrackIndex = 0;
 
     async function initializeAudio(url, autoplay = false) {
+        console.log("Initializing audio for URL:", url);
         if (isInitialized) return;
-
-        playButton.disabled = true;
-        playButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>'; // Show loading spinner
 
         try {
             await Tone.start();
@@ -81,10 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         isInitialized = false;
         const track = tracks[index];
+        console.log("Loading track:", track.title);
         body.className = track.className;
         trackTitle.textContent = track.title;
-        const url = typeof track.url === 'function' ? track.url() : track.url; // Determine track URL
-        initializeAudio(url, autoplay);
+        const url = typeof track.url === 'function' ? track.url() : track.url; // Resolve track URL
+        initializeAudio(url, autoplay); // Initialize audio with resolved URL
     }
 
     function shuffleTrack() {
@@ -98,7 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     playButton.addEventListener('click', async () => {
         if (!isInitialized) {
-            await initializeAudio(tracks[currentTrackIndex].url, true);
+            const currentTrack = tracks[currentTrackIndex];
+            const url = typeof currentTrack.url === 'function' ? currentTrack.url() : currentTrack.url;
+            await initializeAudio(url, true);
         } else {
             togglePlayback();
         }
@@ -113,6 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffleTrack();
     });
 
-    // Initialize the first track
-    loadTrack(currentTrackIndex);
+    // Initialize the first track but do not preload audio
+    console.log("Initializing the first track without preloading audio");
+    const initialTrack = tracks[currentTrackIndex];
+    body.className = initialTrack.className;
+    trackTitle.textContent = initialTrack.title;
+    playButton.innerHTML = '<i class="fa-solid fa-play"></i>'; // Show play icon initially
 });
